@@ -107,9 +107,25 @@ public class Services {
 
         return  percent;
     }
+
     public void infSalarios(float sal, float novoSal){
         salario.setSalario(sal);
         salario.setNewSalario(novoSal);
+    }
+
+    public float percentualDeSalarios(){
+        int cont=0;
+        float novoSalario=0;
+        for (int i = 0; i < listClubs.size(); i++) {
+            for (int j = 0; j < listClubs.get(i).getListPlayer().size(); j++) {
+                if (listClubs.get(i).getListPlayer().get (j).getSituacao().equalsIgnoreCase("titular")){
+                    cont++;
+                    novoSalario+=listClubs.get(j).getListPlayer().get(j).getSalario().getNewSalario();
+                }
+
+            }
+        }
+        return novoSalario;
     }
 
 

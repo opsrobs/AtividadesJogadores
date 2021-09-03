@@ -1,11 +1,18 @@
 package com.company;
 
+import java.text.DecimalFormat;
+
 public class Salario {
     private float salario;
     private float newSalario;
 
-    public Salario(float salario){
+    public Salario(float salario, float newSalario){
         this.salario= salario;
+        this.newSalario=newSalario;
+    }
+    public Salario(){
+        this.salario= salario;
+        this.newSalario=newSalario;
     }
 
     public float getSalario() {
@@ -26,9 +33,11 @@ public class Salario {
 
     @Override
     public String toString() {
-        return "Salario{" +
-                "salario=" + salario +
-                ", newSalario=" + newSalario +
-                '}';
+        DecimalFormat formatter = new DecimalFormat("###,###.00");
+        String s = formatter.format(salario);
+        String ns=formatter.format(newSalario);
+
+        return " Salário= " +  s+"R$" +"\n" +
+                " Novo saláio= " + ns+"R$";
     }
 }

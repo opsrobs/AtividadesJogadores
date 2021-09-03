@@ -11,7 +11,8 @@ public class Main {
             //
         String nomeJogador;
         String situacao;
-        Player player=new Player();
+        float salJogador;
+        Player player;
 
 
         nomeClube= services.capNomeClube();
@@ -21,7 +22,9 @@ public class Main {
             clube=new Clube(nomeClube,nomeCidade);
             nomeJogador= services.capNomeJogador();
             while (!nomeJogador.equalsIgnoreCase("sair")){
-                salario= new Salario(services.capSalarioJogador());
+                salJogador=services.capSalarioJogador();
+                salario= new Salario(salJogador,services.aumentoSalario(salJogador));
+                services.infSalarios(salJogador,services.aumentoSalario(salJogador));
                 situacao=services.capSituacaoJogador();
                 player = new Player(nomeJogador,situacao,clube,salario);
                 clube.addPlayer(nomeJogador,situacao,clube,salario);
@@ -32,6 +35,8 @@ public class Main {
             nomeClube=services.capNovoClube();
             System.out.println();
         }
-        System.out.println(services.retornarSalarios());
+        System.out.println(services.retornarTotalSalarios()+"\n");
+        System.out.println(services.dadosMenorSalarioAtual());
+
     }
 }

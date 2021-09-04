@@ -123,14 +123,14 @@ public class Services {
 
     public String percentualDeSalarios(){
         float novoSalario=0, novoSalarioReserva=0,salario=0, salarioReserva=0;
-        for (Clube listClub : listClubs) {
-            for (int j = 0; j < listClub.getListPlayer().size(); j++) {
-                if (listClub.getListPlayer().get(j).getSituacao().equalsIgnoreCase("titular")) {
-                    novoSalario += listClubs.get(j).getListPlayer().get(j).getSalario().getNewSalario();
-                    salario = listClubs.get(j).getListPlayer().get(j).getSalario().getSalario();
+        for (int i = 0; i < listClubs.size(); i++) {
+            for (int j = 0; j < listClubs.get(i).getListPlayer().size(); j++) {
+                if (listClubs.get(i).getListPlayer().get(j).getSituacao().equalsIgnoreCase("titular")) {
+                    novoSalario += listClubs.get(i).getListPlayer().get(j).getSalario().getNewSalario();
+                    salario = listClubs.get(i).getListPlayer().get(j).getSalario().getSalario();
                 } else {
-                    novoSalarioReserva = listClubs.get(j).getListPlayer().get(j).getSalario().getNewSalario();
-                    salarioReserva = listClubs.get(j).getListPlayer().get(j).getSalario().getSalario();
+                    novoSalarioReserva = listClubs.get(i).getListPlayer().get(j).getSalario().getNewSalario();
+                    salarioReserva = listClubs.get(i).getListPlayer().get(j).getSalario().getSalario();
                 }
             }
         }
@@ -142,16 +142,19 @@ public class Services {
         DecimalFormat formatter = new DecimalFormat("###,###.00");
         float ms, somaSalario=0;
         int cont=0;
-        for (int i = 0; i < listClubs.size(); i++,cont++) {
-            for (int j = 0; j < listClubs.size(); j++) {
+        for (int i = 0; i < listClubs.size(); i++) {
+            for (int j = 0; j < listClubs.get(i).getListPlayer().size(); j++) {
                 somaSalario+= Float.parseFloat(String.valueOf(listClubs.get(i).getListPlayer().get(j).getSalario().getSalario()));
+                cont++;
             }
         }
         ms=somaSalario/cont;
-        String jogadores= "sem dados";
+        String jogadores= "";
         for (int i = 0; i < listClubs.size(); i++) {
-            if (listClubs.get(i).getListPlayer().get(i).getSalario().getSalario() >ms) {
-                jogadores+=(Float.parseFloat((listClubs.get(i).getListPlayer().get(i).getSalario().toString()+"\n")));
+            for (int j = 0; j < listClubs.get(i).getListPlayer().size(); j++) {
+                if (listClubs.get(i).getListPlayer().get(j).getSalario().getSalario() >ms) {
+                    jogadores += listClubs.get(i).getListPlayer().get(j).getNome()+":\n"+ listClubs.get(i).getListPlayer().get(j).getSalario().toString();
+                }
             }
         }
         return jogadores;

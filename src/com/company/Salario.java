@@ -38,6 +38,6 @@ public class Salario {
         String ns=formatter.format(newSalario);
 
         return " Salário= " +  s+"R$" +"\n" +
-                " Novo saláio= " + ns+"R$";
+                " Novo saláio= " + ns+"R$\n";
     }
 }

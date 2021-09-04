@@ -28,10 +28,10 @@ public class Main {
                 situacao=services.capSituacaoJogador();
                 player = new Player(nomeJogador,situacao,clube,salario);
                 clube.addPlayer(nomeJogador,situacao,clube,salario);
-                services.addListClub(clube);
 
                 nomeJogador= services.capNomeJogador();
             }
+            services.addListClub(clube);
             nomeClube=services.capNovoClube();
             System.out.println();
         }

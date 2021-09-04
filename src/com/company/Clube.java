@@ -7,7 +7,7 @@ public class Clube {
     private ArrayList<Player>listPlayer= new ArrayList<>();
 
     public void addPlayer(String nome, String situacap, Clube clube, Salario salario){
-        listPlayer.add(new Player(nome,situacap,clube,salario));
+        listPlayer.add(new Player(nome,situacap,clube, salario));
     }
 
     public ArrayList<Player> getListPlayer() {

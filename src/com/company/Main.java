@@ -37,7 +37,8 @@ public class Main {
         }
         System.out.println(services.retornarTotalSalarios()+"\n");
         System.out.println(services.dadosMenorSalarioAtual()+"\n");
-        System.out.println(services.percentualDeSalarios());
+        System.out.println(services.percentualDeSalarios()+"\n");
+        System.out.println(services.dadosMaiorSalarioAtual()+"\n");
 
     }
 }

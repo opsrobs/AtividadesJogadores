@@ -41,7 +41,7 @@ public class Clube {
 
     @Override
     public String toString() {
-        return "nome= " + nome + "\n" +
-                " cidade= " + cidade;
+        return "\n Clube= " + nome  +
+                " Cidade= " + cidade;
     }
 }

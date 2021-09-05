@@ -50,9 +50,9 @@ public class Player {
 
     @Override
     public String toString() {
-        return " nome= " + nome + "\n" +
-                " situacao= " + situacao + "\n" +
-                " clube= " + clube.toString() +"\n" +
+        return "\n Nome= " + nome + "\n" +
+                " Situacão= " + situacao + "\n" +
+                clube.toString() +"\n" +
                 salario ;
     }
 }

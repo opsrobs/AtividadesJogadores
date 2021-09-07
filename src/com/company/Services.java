@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import static java.lang.Math.abs;
 
 public class Services {
+    private DecimalFormat formatter = new DecimalFormat("###,###.00");
+
     private final ArrayList<Clube> listClubs = new ArrayList<>();
+
     public void addListClub(Clube clube){
         listClubs.add(clube);
     }
@@ -89,21 +92,18 @@ public class Services {
     }
 
     public float aumentoSalario(float salario){
-        float percent;
         if (salario <9001){
-            percent=((salario/100)*20)+salario;
+            salario=((salario/100)*20)+salario;
         }else if(salario <13001){
-            percent=((salario/100)*10)+salario;
+            salario=((salario/100)*10)+salario;
         }else if(salario <=18000){
-            percent=((salario/100)*5)+salario;
-        }else
-            percent=salario;
+            salario=((salario/100)*5)+salario;
+        }
 
-        return  percent;
+        return  salario;
     }
 
     public String formatarPercentuais(float salario, float novoSalario){
-        DecimalFormat formatter = new DecimalFormat("#.00");
         int centena=100;
         String formato;
         float s=abs(((salario*centena)/novoSalario)-centena);
@@ -115,7 +115,7 @@ public class Services {
     }
 
     public String percentualDeSalarios(String situacao){
-        float novoSalario=0, novoSalarioReserva=0,salario=0, salarioReserva=0;
+        float novoSalarioReserva=0, salarioReserva=0;
         for (int i = 0; i < listClubs.size(); i++) {
             for (int j = 0; j < listClubs.get(i).getListPlayer().size(); j++) {
                 if (listClubs.get(i).getListPlayer().get(j).getSituacao().equalsIgnoreCase(situacao)) {
@@ -126,7 +126,6 @@ public class Services {
         }
         return this.formatarPercentuais(salarioReserva,novoSalarioReserva);
     }
-
 
     public String dadosMaiorSalarioAtual(float media){
     String jogadores= "";
@@ -146,8 +145,8 @@ public class Services {
 
     public int qtdJogadores(){
         int qtd=0;
-        for (int i = 0; i < listClubs.size(); i++) {
-            qtd += listClubs.get(i).getListPlayer().size();
+        for (Clube listClub : listClubs) {
+            qtd += listClub.getListPlayer().size();
         }
         return qtd;
     }
@@ -162,6 +161,25 @@ public class Services {
         return salario / Float.parseFloat(String.valueOf(qtd));
     }
 
+    public String mediaSalarioPorClubes(){
+        float salario=0;
+        String nomeClube="", dadosPorClube="";
+        for (int i = 0; i < listClubs.size(); i++) {
+            float qtd = listClubs.get(i).getListPlayer().size();
+            for (int j = 0; j < listClubs.get(i).getListPlayer().size(); j++) {
+                nomeClube=listClubs.get(i).toString();
+                salario+= listClubs.get(i).getListPlayer().get(j).getSalario().getSalario();
+            }
+            salario=salario / qtd;
+            dadosPorClube+="\nO nome e cidade sede do clube é: \n"+"\t"+nomeClube+":\n"+
+                           "\tA média salarial do clube é: "+formatter.format(salario)+"\n"+
+                           "\tA quantidade de jogadores do clube é: "+qtd;
+            salario=0;
+            qtd=0;
+        }
+        return dadosPorClube;
+    }
+
     public float mediaNovoSalarioClubes(int qtd){
         float salario=0;
         for (int i = 0; i < listClubs.size(); i++) {
@@ -173,7 +191,6 @@ public class Services {
     }
 
     public String toString(){
-        DecimalFormat formatter = new DecimalFormat("###,###.00");
         return  "O Total dos salarios sem aumento percentual resultou em: "+ formatter.format(this.retornarTotalSalariosAtuais())+"\n"+
                 "O Total dos novos salarios resultou em: "+ formatter.format(this.retornarTotalNovosSalarios())+"\n"+
                 "Os dados do jogador com menor salario atual é: "+ this.dadosMenorSalarioAtual()+"\n"+
@@ -182,7 +199,9 @@ public class Services {
                 "Os jogadores com salarios acima da média são: "+ this.dadosMaiorSalarioAtual(mediaSalarioClubes(qtdJogadores()))+"\n"+
                 "As seguintes informações dos clubes foram coletadas: "+ this.dadosClubes()+"\n"+
                 "A média salarial dos jogadores baseada no salario sem aumento é de: "+ formatter.format(this.mediaSalarioClubes(qtdJogadores()))+"\n"+
-                "A média salarial dos jogadores baseada no salario com aumento é de: "+ formatter.format(this.mediaNovoSalarioClubes(qtdJogadores()));
+                "A média salarial dos jogadores baseada no salario com aumento é de: "+ formatter.format(this.mediaNovoSalarioClubes(qtdJogadores()))+"\n"+
+                "A quantidade de jogadores é de: "+ formatter.format(this.qtdJogadores())+"\n"+
+                this.mediaSalarioPorClubes();
 
     }
 

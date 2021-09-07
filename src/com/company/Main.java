@@ -8,12 +8,10 @@ public class Main {
         Clube clube;
         String nomeClube;
         String nomeCidade;
-            //
         String nomeJogador;
         String situacao;
         float salJogador;
         Player player;
-
 
         nomeClube= services.capNomeClube();
         while(!nomeClube.equalsIgnoreCase("sair")){

@@ -118,16 +118,15 @@ public class Services {
     }
 
     public String percentualDeSalarios(String situacao){
-        float novoSalarioReserva=0, salarioReserva=0;
+        float novoSalarioReserva=0;
         for (int i = 0; i < listClubs.size(); i++) {
             for (int j = 0; j < listClubs.get(i).getListPlayer().size(); j++) {
                 if (listClubs.get(i).getListPlayer().get(j).getSituacao().equalsIgnoreCase(situacao)) {
-                    novoSalarioReserva = listClubs.get(i).getListPlayer().get(j).getSalario().getNewSalario();
-                    salarioReserva = listClubs.get(i).getListPlayer().get(j).getSalario().getSalario();
+                    novoSalarioReserva += listClubs.get(i).getListPlayer().get(j).getSalario().getNewSalario();
                 }
             }
         }
-        return this.formatarPercentuais(salarioReserva,novoSalarioReserva);
+        return this.formatarPercentuais(this.retornarTotalNovosSalarios(),novoSalarioReserva);
     }
 
     public String dadosMaiorSalarioAtual(float media){

@@ -32,7 +32,5 @@ public class Main {
             nomeClube=services.capNovoClube();
             System.out.println();
         }
-        System.out.println(services.toString());
-
     }
 }

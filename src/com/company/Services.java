@@ -14,15 +14,19 @@ public class Services {
     public void addListClub(Clube clube){
         listClubs.add(clube);
     }
+
     public String capNomeClube(){
         return JOptionPane.showInputDialog("Informe o nome do Clube: ");
     }
+
     public String capNomeCidade(){
         return JOptionPane.showInputDialog("Informe qual a cidade do clube: ");
     }
+
     public String capNomeJogador(){
         return JOptionPane.showInputDialog("Informe o nome do Jogador: ");
     }
+
     public String capSituacaoJogador(){
         int situacaoJog;
         String situacao;
@@ -34,13 +38,13 @@ public class Services {
             else
                 situacao="Titular";
         }while (situacaoJog>1);
-
         return situacao;
-
     }
+
     public float capSalarioJogador(){
         return Float.parseFloat(JOptionPane.showInputDialog("Informe o salario atual do Jgador: "));
     }
+
     public String capNovoClube(){
         int opUsuario;
         String retornarCadastro;
@@ -48,12 +52,12 @@ public class Services {
             opUsuario= Integer.parseInt(JOptionPane.showInputDialog("O que você deseja fazer? \n\t[0]NOVO CADASTRO \n\t[1]SAIR"));
             if (opUsuario==0)
                 retornarCadastro=JOptionPane.showInputDialog("Informe o nome do clube: ");
-            else
-                retornarCadastro="sair";
-        }while (opUsuario>1);
-
+            else{
+            retornarCadastro = "sair";
+            this.apresentarOpcao(this.escolherOpcao());
+            }
+        }while (opUsuario>2);
         return retornarCadastro;
-
     }
     
     public float retornarTotalSalariosAtuais(){
@@ -64,8 +68,8 @@ public class Services {
             }
         }
         return salarioAtual;
-        
     }
+
     public float retornarTotalNovosSalarios(){
         float novoSalario=0;
         for (int i = 0; i < listClubs.size(); i++) {
@@ -74,7 +78,6 @@ public class Services {
             }
         }
         return novoSalario;
-
     }
     
     public String dadosMenorSalarioAtual(){
@@ -171,9 +174,9 @@ public class Services {
                 salario+= listClubs.get(i).getListPlayer().get(j).getSalario().getSalario();
             }
             salario=salario / qtd;
-            dadosPorClube+="\nO nome e cidade sede do clube é: \n"+"\t"+nomeClube+":\n"+
+            dadosPorClube+="O nome e cidade sede do clube é: \n"+"\t"+nomeClube+":\n"+
                            "\tA média salarial do clube é: "+formatter.format(salario)+"\n"+
-                           "\tA quantidade de jogadores do clube é: "+qtd;
+                           "\tA quantidade de jogadores do clube é: "+qtd+"\n";
             salario=0;
             qtd=0;
         }
@@ -202,6 +205,36 @@ public class Services {
                 "A média salarial dos jogadores baseada no salario com aumento é de: "+ formatter.format(this.mediaNovoSalarioClubes(qtdJogadores()))+"\n"+
                 "A quantidade de jogadores é de: "+ formatter.format(this.qtdJogadores())+"\n"+
                 this.mediaSalarioPorClubes();
+    }
+
+    public void apresentarOpcao(int opcao){
+        switch (opcao) {
+            case 1 -> System.out.println("O Total dos salarios sem aumento percentual resultou em: " + formatter.format(this.retornarTotalSalariosAtuais()) + "\n" +
+                    "O Total dos novos salarios resultou em: " + formatter.format(this.retornarTotalNovosSalarios()) + "\n");
+            case 2 -> System.out.println("Os dados do jogador com menor salario atual é: " + this.dadosMenorSalarioAtual());
+            case 3 -> System.out.println("A participação percentual dos titulares sobre o total dos novos salarios é de: " + this.percentualDeSalarios("Titular") + "\n" +
+                    "A participação percentual dos reservas sobre o total dos novos salarios é de: " + this.percentualDeSalarios("Reserva"));
+            case 4 -> System.out.println("Os jogadores com salarios acima da média são: " + this.dadosMaiorSalarioAtual(mediaSalarioClubes(qtdJogadores())));
+            case 5 -> System.out.println(this.mediaSalarioPorClubes());
+            case 6 -> System.out.println(this.toString());
+        }
+
+    }
+
+    public int escolherOpcao(){
+        int op=0;
+        do {
+            op=Integer.parseInt(JOptionPane.showInputDialog("""
+                    Informe a opção desejada:\s
+                    \t[1] Total dos salários atuais e dos novos salários!
+                    \t[2] Nome, salário atual e novo salário do jogador com menor salário atual!
+                    \t[3] Participação percentual dos novos salários dos titulares e dos reservas sobre o total de novos salários!
+                    \t[4] Nome, salário atual e novo salário dos jogadores com novo salário acima da média de novos salários!
+                    \t[5] Nome do clube e cidade-sede, média salarial e quantidade de jogadores!
+                    \t[6] TOTAS AS INFORMAÇÕES!!!"""));
+        }while (op >6);
+        return op;
+
 
     }
 
